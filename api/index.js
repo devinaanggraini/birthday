@@ -5,40 +5,46 @@ import crypto from "crypto";
 
 export default async function handler(req, res) {
   try {
-    // hanya izinkan dari vercel cron
-    if (!req.headers["x-vercel-cron"]) {
+    const isTest = req.query.test === "true";
+
+    // hanya izinkan cron ATAU test
+    if (!req.headers["x-vercel-cron"] && !isTest) {
       return res.status(403).send("Forbidden");
     }
 
     const now = moment().tz("Asia/Jakarta");
 
-const isTarget =
-  now.year() === 2026 &&
-  now.month() === 3 &&
-  now.date() === 26;
+    // cek tanggal hanya kalau bukan test
+    if (!isTest) {
+      const isTarget =
+        now.year() === 2026 &&
+        now.month() === 4 &&
+        now.date() === 12;
 
-if (!isTarget) {
-  return res.status(200).send("Not today");
-}
+      if (!isTarget) {
+        return res.status(200).send("Not today");
+      }
+    }
 
-    // id unik (idempotency key)
     const id = crypto
       .createHash("sha256")
-      .update("birthday-2026-05-12-00-00")
+      .update("birthday-2026-05-12")
       .digest("hex");
 
-    console.log("Execution ID:", id);
-
-    const message = `Selamat ulang tahun, cintaku 💖
+    const message = isTest
+      ? "INI TEST YA 😄"
+      : `Selamat ulang tahun, cintaku 💖
 
 Tepat jam 00:00 ini aku ingin jadi orang pertama yang mengucapkan...
 
 Kamu adalah segalanya bagiku ❤️`;
 
+    console.log("Kirim pesan:", message);
+
     // ======================
-    // 1. WHATSAPP (Fonnte)
+    // WHATSAPP
     // ======================
-    await axios.post(
+    const waRes = await axios.post(
       "https://api.fonnte.com/send",
       {
         target: process.env.WA_TARGET,
@@ -46,14 +52,15 @@ Kamu adalah segalanya bagiku ❤️`;
       },
       {
         headers: {
-          Authorization: process.env.FONNTE_API_KEY,
-          "Idempotency-Key": id
+          Authorization: process.env.FONNTE_API_KEY
         }
       }
     );
 
+    console.log("WA Response:", waRes.data);
+
     // ======================
-    // 2. EMAIL
+    // EMAIL
     // ======================
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -63,11 +70,11 @@ Kamu adalah segalanya bagiku ❤️`;
       }
     });
 
-    await transporter.sendMail({
+    const emailRes = await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_TO,
-      subject: "Selamat Ulang Tahun ❤️",
-      html: `
+      subject: isTest ? "TEST EMAIL" : "Selamat Ulang Tahun ❤️",
+      /** html: `
   <div style="font-family: Arial, sans-serif; background: #fff0f5; padding: 20px; border-radius: 10px;">
     <h2 style="color: #e91e63; text-align: center;">
       Selamat Ulang Tahun 💖
@@ -100,12 +107,15 @@ Kamu adalah segalanya bagiku ❤️`;
       ❤️ Dari suamimu ❤️
     </p>
   </div>
-`
+` **/
+      text: message
     });
 
-    return res.status(200).send("Success: sent once");
+    console.log("Email Sent:", emailRes.response);
+
+    return res.status(200).send("Success");
   } catch (err) {
-    console.error(err);
+    console.error("ERROR:", err.response?.data || err.message);
     return res.status(500).send("Error");
   }
-      }
+}
