@@ -12,18 +12,14 @@ export default async function handler(req, res) {
 
     const now = moment().tz("Asia/Jakarta");
 
-    // validasi waktu: 12 Mei 2026 jam 00:00 WIB
-    const isTargetTime =
-      now.year() === 2026 &&
-      now.month() === 4 && // Mei (0-index)
-      now.date() === 12 &&
-      now.hour() === 0 &&
-      now.minute() === 0 &&
-      now.second() < 10; // guard tambahan (hindari double)
+const isTarget =
+  now.year() === 2026 &&
+  now.month() === 4 &&
+  now.date() === 12;
 
-    if (!isTargetTime) {
-      return res.status(200).send("Not time yet");
-    }
+if (!isTarget) {
+  return res.status(200).send("Not today");
+}
 
     // id unik (idempotency key)
     const id = crypto
