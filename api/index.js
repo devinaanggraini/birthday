@@ -8,7 +8,9 @@ export default async function handler(req, res) {
     const isTest = req.query.test === "true";
 
     // hanya izinkan cron ATAU test
-    if (!req.headers["x-vercel-cron"] && !isTest) {
+    const isExternal = req.headers["user-agent"]?.includes("cron-job");
+
+    if (!req.headers["x-vercel-cron"] && !isTest && !isExternal) {
       return res.status(403).send("Forbidden");
     }
 
