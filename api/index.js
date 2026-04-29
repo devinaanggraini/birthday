@@ -16,10 +16,7 @@ export default async function handler(req, res) {
 
     // cek tanggal hanya kalau bukan test
     if (!isTest) {
-      const isTarget =
-        now.year() === 2026 &&
-        now.month() === 3 &&
-        now.date() === 29;
+      const isTarget = now.format("YYYY-MM-DD") === "2026-04-29";
 
       if (!isTarget) {
         return res.status(200).send("Not today");
