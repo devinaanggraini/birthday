@@ -18,8 +18,8 @@ export default async function handler(req, res) {
     if (!isTest) {
       const isTarget =
         now.year() === 2026 &&
-        now.month() === 4 &&
-        now.date() === 12;
+        now.month() === 3 &&
+        now.date() === 29;
 
       if (!isTarget) {
         return res.status(200).send("Not today");
@@ -28,16 +28,16 @@ export default async function handler(req, res) {
 
     const id = crypto
       .createHash("sha256")
-      .update("birthday-2026-05-12")
+      .update("birthday-2026-04-29")
       .digest("hex");
 
     const message = isTest
       ? "INI TEST YA 😄"
-      : `Selamat ulang tahun, cintaku 💖
+      : /** `Selamat ulang tahun, cintaku 💖
 
 Tepat jam 00:00 ini aku ingin jadi orang pertama yang mengucapkan...
 
-Kamu adalah segalanya bagiku ❤️`;
+Kamu adalah segalanya bagiku ❤️` **/ `TESTED`;
 
     console.log("Kirim pesan:", message);
 
@@ -73,7 +73,7 @@ Kamu adalah segalanya bagiku ❤️`;
     const emailRes = await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_TO,
-      subject: isTest ? "TEST EMAIL" : "Selamat Ulang Tahun ❤️",
+      subject: isTest ? "TEST EMAIL" : "TESTED",
       /** html: `
   <div style="font-family: Arial, sans-serif; background: #fff0f5; padding: 20px; border-radius: 10px;">
     <h2 style="color: #e91e63; text-align: center;">
