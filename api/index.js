@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
     // cek tanggal hanya kalau bukan test
     if (!isTest) {
-      const isTarget = now.format("YYYY-MM-DD") === "2026-04-29";
+      const isTarget = now.format("YYYY-MM-DD") === "2026-05-12";
 
       if (!isTarget) {
         return res.status(200).send("Not today");
@@ -27,16 +27,53 @@ export default async function handler(req, res) {
 
     const id = crypto
       .createHash("sha256")
-      .update("birthday-2026-04-29")
+      .update("birthday-2026-05-12")
       .digest("hex");
 
     const message = isTest
       ? "INI TEST YA 😄"
-      : /** `Selamat ulang tahun, cintaku 💖
+      : `Selamat ulang tahun, istriku cintaku 💖🎉
 
-Tepat jam 00:00 ini aku ingin jadi orang pertama yang mengucapkan...
+Tepat di jam 00:00 ini ⏰, aku ingin jadi orang pertama yang mengucapkan...
 
-Kamu adalah segalanya bagiku ❤️` **/ `TESTED`;
+Selamat ulang tahun untuk perempuan paling istimewa dalam hidupku ❤️✨
+
+Hari ini bukan cuma tentang bertambahnya usia kamu 🎂,
+tapi tentang betapa bersyukurnya aku karena dunia menghadirkan kamu untukku 🌍💕
+
+Terima kasih sudah hadir dalam hidupku 🤍,
+terima kasih untuk setiap senyum yang kamu kasih 😊,
+untuk setiap perhatian kecil yang selalu kamu tunjukkan 💫,
+dan untuk semua cinta yang kamu berikan tanpa pernah berkurang sedikit pun ❤️
+
+Kamu adalah rumah bagiku 🏡,
+tempat aku pulang saat dunia terasa lelah 😔,
+tempat aku menemukan tenang, hangat, dan bahagia ☁️✨
+
+Aku mungkin bukan orang yang sempurna,
+tapi satu hal yang pasti…
+aku akan selalu berusaha jadi yang terbaik untuk kamu 💪❤️
+
+Di umur kamu yang baru ini 🎈,
+aku berharap semua impian kamu perlahan jadi nyata 🌠,
+semoga kamu selalu sehat 💪,
+selalu bahagia 😊,
+dan selalu dikelilingi hal-hal baik 🌸
+
+Dan kalau suatu hari kamu merasa lelah 😢,
+ingat ya…
+aku selalu ada di sini untuk kamu 🤗💖
+
+Aku mencintaimu 💕,
+bukan hanya hari ini,
+tapi setiap hari, setiap waktu, tanpa henti ⏳❤️
+
+Maaf jika di hari ulang tahun mu
+di tahun sebelumnya aku tidak bisa
+memberi hadiah 🥲
+
+Selamat ulang tahun, sayangku…
+Aku akan selalu memilih kamu, lagi dan lagi 💍❤️✨`;
 
     console.log("Kirim pesan:", message);
 
@@ -72,8 +109,8 @@ Kamu adalah segalanya bagiku ❤️` **/ `TESTED`;
     const emailRes = await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_TO,
-      subject: isTest ? "TEST EMAIL" : "TESTED",
-      /** html: `
+      subject: isTest ? "TEST EMAIL" : "HBD MY WIFE ❤️✨",
+      html: `
   <div style="font-family: Arial, sans-serif; background: #fff0f5; padding: 20px; border-radius: 10px;">
     <h2 style="color: #e91e63; text-align: center;">
       Selamat Ulang Tahun 💖
@@ -106,8 +143,7 @@ Kamu adalah segalanya bagiku ❤️` **/ `TESTED`;
       ❤️ Dari suamimu ❤️
     </p>
   </div>
-` **/
-      text: message
+`
     });
 
     console.log("Email Sent:", emailRes.response);
