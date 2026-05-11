@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       ? "INI TEST YA 😄"
       : `Selamat ulang tahun, istriku cintaku 💖🎉
 
-Tepat di jam 00:00 ini ⏰, aku ingin jadi orang pertama yang mengucapkan...
+Tepat di Tanggal 12 Mei 2026 jam 00:00 ini ⏰, aku ingin jadi orang pertama yang mengucapkan...
 
 Selamat ulang tahun untuk perempuan paling istimewa dalam hidupku ❤️✨
 
@@ -73,7 +73,11 @@ di tahun sebelumnya aku tidak bisa
 memberi hadiah 🥲
 
 Selamat ulang tahun, sayangku…
-Aku akan selalu memilih kamu, lagi dan lagi 💍❤️✨`;
+Aku akan selalu memilih kamu, lagi dan lagi 💍❤️✨
+
+Klik link dibawah ya cantiiii 😚
+
+https://bit.ly/hbd-canticuuu`;
 
     console.log("Kirim pesan:", message);
 
@@ -111,38 +115,83 @@ Aku akan selalu memilih kamu, lagi dan lagi 💍❤️✨`;
       to: process.env.EMAIL_TO,
       subject: isTest ? "TEST EMAIL" : "HBD MY WIFE ❤️✨",
       html: `
-  <div style="font-family: Arial, sans-serif; background: #fff0f5; padding: 20px; border-radius: 10px;">
-    <h2 style="color: #e91e63; text-align: center;">
-      Selamat Ulang Tahun 💖
-    </h2>
+<div style="margin:0;padding:0;background:#fff0f6;font-family: 'Segoe UI', Arial, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding:20px 0;">
+    <tr>
+      <td align="center">
 
-    <p style="font-size: 16px; color: #333;">
-      Tepat di jam <b>00:00</b> ini, aku ingin jadi orang pertama yang mengucapkan...
-    </p>
+        <table width="600" cellpadding="0" cellspacing="0" 
+          style="background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.1);">
 
-    <p style="font-size: 18px; font-weight: bold; color: #d81b60;">
-      Selamat ulang tahun, istriku tercinta ❤️
-    </p>
+          <!-- HEADER -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#ff6fa5,#ffb6c1);padding:30px;text-align:center;color:white;">
+              <h1 style="margin:0;font-size:28px;">Selamat Ulang Tahun 💖</h1>
+              <p style="margin:5px 0 0;font-size:16px;">Untuk Istriku Tercinta</p>
+            </td>
+          </tr>
 
-    <p style="font-size: 16px; color: #333;">
-      Semoga di umur yang baru ini kamu selalu diberikan kebahagiaan,
-      kesehatan, dan semua hal indah yang kamu impikan.
-    </p>
+          <!-- BODY -->
+          <tr>
+            <td style="padding:30px;color:#444;line-height:1.7;font-size:16px;">
 
-    <p style="font-size: 16px; color: #333;">
-      Terima kasih sudah menjadi bagian terindah dalam hidupku.
-    </p>
+              <p>Sayangku ❤️</p>
 
-    <p style="font-size: 18px; color: #e91e63;">
-      Aku mencintaimu, hari ini dan selamanya 💕
-    </p>
+              <p>
+                Tepat di jam <b>00:00</b> ini, aku ingin jadi orang pertama yang mengucapkan...
+                <br><br>
+                <b>Selamat ulang tahun untuk perempuan paling istimewa dalam hidupku.</b>
+              </p>
 
-    <hr style="margin: 20px 0;" />
+              <p>
+                Hari ini bukan hanya tentang bertambahnya usia kamu,
+                tapi tentang betapa bersyukurnya aku karena dunia mempertemukan aku dengan kamu.
+              </p>
 
-    <p style="text-align: center; font-size: 14px; color: #777;">
-      ❤️ Dari suamimu ❤️
-    </p>
-  </div>
+              <p>
+                Terima kasih sudah menjadi bagian terindah dalam hidupku,
+                untuk semua cinta, perhatian, dan kesabaran yang kamu berikan.
+              </p>
+
+              <p>
+                Kamu adalah rumah bagiku,
+                tempat aku pulang,
+                tempat aku merasa tenang,
+                dan tempat aku menemukan kebahagiaan.
+              </p>
+
+              <p>
+                Di umur kamu yang baru ini,
+                aku berdoa semoga kamu selalu sehat,
+                selalu bahagia,
+                dan semua impian kamu satu per satu menjadi nyata.
+              </p>
+
+              <p>
+                Dan apapun yang terjadi nanti,
+                aku akan selalu ada di samping kamu.
+              </p>
+
+              <p style="font-size:18px;color:#e91e63;font-weight:bold;">
+                Aku mencintaimu, hari ini, besok, dan selamanya 💕
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="background:#fff0f6;padding:20px;text-align:center;font-size:14px;color:#888;">
+              ❤️ Dari suamimu yang selalu mencintaimu ❤️
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+</div>
 `
     });
 
